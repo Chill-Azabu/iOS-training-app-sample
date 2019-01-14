@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="KpK-zB-Jnz">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Logout View Controller-->
+        <scene sceneID="RXk-Ou-7AL">
+            <objects>
+                <viewController storyboardIdentifier="LogoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KpK-zB-Jnz" customClass="LogoutViewController" customModule="iOS_training_app_sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Vki-32-gR5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lUU-hZ-7Lc">
+                                <rect key="frame" x="87.5" y="303.5" width="200" height="60"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="60" id="1yJ-f6-gS3"/>
+                                    <constraint firstAttribute="width" constant="200" id="DjE-CN-Sux"/>
+                                </constraints>
+                                <state key="normal" title="ログアウト"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lUU-hZ-7Lc" firstAttribute="centerX" secondItem="Vki-32-gR5" secondAttribute="centerX" id="GiS-uM-3Qi"/>
+                            <constraint firstItem="lUU-hZ-7Lc" firstAttribute="centerY" secondItem="Vki-32-gR5" secondAttribute="centerY" id="jwb-jl-SR4"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Frn-Gj-KE1"/>
+                    </view>
+                    <connections>
+                        <outlet property="logoutButton" destination="lUU-hZ-7Lc" id="Wa2-Ek-xGs"/>
+                        <segue destination="DsS-1p-Vbz" kind="show" id="ozp-cH-oeX"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Qmq-FJ-LJ9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-44" y="208"/>
+        </scene>
+        <!--HomeViewController-->
+        <scene sceneID="7QH-x4-RWd">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeViewController" id="DsS-1p-Vbz" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="j3X-8T-aq4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="612" y="207"/>
+        </scene>
+    </scenes>
+</document>
