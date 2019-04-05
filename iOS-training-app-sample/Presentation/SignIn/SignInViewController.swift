@@ -21,6 +21,7 @@ class SignInViewController: UIViewController, ViewController {
     @IBOutlet weak var emailTextField: UITextField! {
         didSet {
             emailTextField.placeholder = "入力する"
+            emailTextField.clearButtonMode = .unlessEditing
         }
     }
 
@@ -35,6 +36,7 @@ class SignInViewController: UIViewController, ViewController {
         didSet {
             passwordTextField.placeholder = "入力する"
             passwordTextField.isSecureTextEntry = true
+            passwordTextField.clearButtonMode = .unlessEditing
         }
     }
 
@@ -42,6 +44,7 @@ class SignInViewController: UIViewController, ViewController {
         didSet {
             signInButton.setTitle("ログイン", for: .normal)
             signInButton.backgroundColor = .lightGray
+            signInButton.layer.cornerRadius = 5
         }
     }
 
@@ -49,23 +52,22 @@ class SignInViewController: UIViewController, ViewController {
         didSet {
             signUpButton.setTitle("新規作成", for: .normal)
             signUpButton.backgroundColor = .lightGray
+            signUpButton.layer.cornerRadius = 5
         }
     }
 
-    private let disposeBag: DisposeBag = .init()
-    private lazy var viewModel = SignInViewModelImpl(
-        input: (
-            email: emailTextField.rx.text.orEmpty.asDriver(),
-            password: passwordTextField.rx.text.orEmpty.asDriver(),
-            signInTap: signInButton.rx.tap.asSignal()
-        ),
-        dependency: (UserAccountRepositoryImpl())
-    )
+    private var routing: SignInRouting! {
+        didSet {
+            routing.viewController = self
+        }
+    }
+    private var viewModel: SignInViewModel!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = Color.Palette.lightGray
+        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
         title = "書籍一覧"
 
         bindView()
@@ -76,27 +78,26 @@ class SignInViewController: UIViewController, ViewController {
         viewModel.isValid
             .drive(onNext: { [unowned self] valid in
                 self.signInButton.isEnabled = valid
-                self.signInButton.backgroundColor = valid ? .lightGray : .green
+                self.signInButton.backgroundColor = valid ? .lightGray : .white
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
 
         viewModel.didSignInTap
             .subscribe(onNext: { [unowned self] _ in
-                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
 
         viewModel.responseError.skip(1)
             .subscribe(onNext: { [unowned self] error in
                 self.showAlertDialog(title: "エラー", message: (error?.localizedDescription)!)
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
         signUpButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                let vc = SignUpViewController.createInstance()
-                self.navigationController?.pushViewController(vc, animated: true)
+                self.routing.showSignUp()
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -107,6 +108,14 @@ class SignInViewController: UIViewController, ViewController {
 extension SignInViewController {
     static func createInstance() -> SignInViewController {
         let instance = R.storyboard.signInViewController.signInViewController()!
+        instance.viewModel = SignInViewModelImpl(input: (
+            email: instance.emailTextField.rx.text.orEmpty.asDriver(),
+            password: instance.passwordTextField.rx.text.orEmpty.asDriver(),
+            signInTap: instance.signInButton.rx.tap.asSignal()
+            ),
+            dependency: (UserAccountRepositoryImpl())
+        )
+        instance.routing = SignInRoutingImpl()
         return instance
     }
 }

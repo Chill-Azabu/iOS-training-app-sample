@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 class ContentsDataSource: NSObject {
-    typealias Content = [ContentsListEntity.Response]
+    typealias Content = [ContentsListEntity]
 
     var items: Content
 

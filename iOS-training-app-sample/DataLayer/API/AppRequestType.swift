@@ -53,7 +53,7 @@ protocol AppRequestType: Request {
 extension AppRequestType {
 
     var baseURL: URL {
-        return URL(string: Const.url)!
+        return URL(string: AppResource.Const.url)!
     }
 
     func intercept(object: Any, urlResponse: HTTPURLResponse) throws -> Any {
@@ -79,7 +79,7 @@ extension AppRequestType {
         Logger.shared.apiRequestLogger(urlRequest)
 
         var req = urlRequest
-        req.timeoutInterval = 5.0
+        req.timeoutInterval = 2.0
 
         return req
     }

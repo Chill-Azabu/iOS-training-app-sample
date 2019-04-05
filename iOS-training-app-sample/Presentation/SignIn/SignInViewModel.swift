@@ -20,6 +20,7 @@ protocol SignInViewModel: ViewModel {
         UserAccountRepositoryImpl
     )
 
+    var disposeBag: DisposeBag { get }
     var isValid: Driver<Bool> { get }
     var responseError: BehaviorRelay<Error?> { get }
     var didSignInTap: PublishRelay<Void> { get }
@@ -31,6 +32,7 @@ final class SignInViewModelImpl: SignInViewModel {
     private let isEmailValid: Driver<Bool>
     private let isPasswordValid: Driver<Bool>
 
+    let disposeBag: DisposeBag
     let isValid: Driver<Bool>
     let responseError: BehaviorRelay<Error?>
     let didSignInTap: PublishRelay<Void>
@@ -39,7 +41,8 @@ final class SignInViewModelImpl: SignInViewModel {
         self.dependency = dependency
         self.responseError = BehaviorRelay<Error?>(value: nil)
         self.didSignInTap = PublishRelay<Void>()
-
+        self.disposeBag = DisposeBag()
+        
         self.isEmailValid = input.email
             .map { text in
                 text.count >= 3

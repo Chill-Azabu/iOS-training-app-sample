@@ -13,7 +13,6 @@ import UIKit
 
 protocol ContentsEditViewModel: ViewModel {
     typealias Input = (
-        image: UIImage,
         title: Driver<String>,
         price: Driver<String>,
         purchaseDate: Driver<String>,
@@ -22,20 +21,32 @@ protocol ContentsEditViewModel: ViewModel {
     typealias Dependency = (
         ContentsRepositoryImpl
     )
+
+    var disposeBag: DisposeBag { get }
     var didRequestEnd: PublishRelay<Void> { get }
     var responseError: BehaviorRelay<Error?> { get }
+    var indexPath: Int { get }
 }
 
 final class ContentsEditViewModelImpl: ContentsEditViewModel {
+    let disposeBag: DisposeBag
     let didRequestEnd: PublishRelay<Void>
     let responseError: BehaviorRelay<Error?>
+    let indexPath: Int
+    let imageView: Driver<UIImage>
 
-    init(input: Input, dependency: Dependency) {
+    init(input: Input, dependency: Dependency, indexPath: Int) {
+        self.disposeBag = DisposeBag()
         self.didRequestEnd = PublishRelay<Void>()
         self.responseError = BehaviorRelay<Error?>(value: nil)
+        self.indexPath = indexPath
+        self.imageView = Driver<UIImage>.never()
 
-        guard let imageData: Data = input.image.pngData() else { return }
-        let imageDataString: String = imageData.base64EncodedString(options: [])
+        let image = self.imageView.map { image -> String in
+            guard let imageData: Data = image.pngData() else { return "" }
+            let imageDataString: String = imageData.base64EncodedString(options: [])
+            return imageDataString
+        }
 
         let price = input.price
             .map { price -> Int in
@@ -49,13 +60,13 @@ final class ContentsEditViewModelImpl: ContentsEditViewModel {
                 return date
             }.asDriver()
 
-        let parameters = Driver.combineLatest(input.title, price, purchaseDate) { ( name: $0, price: $1, purchaceDate: $2) }
+        let parameters = Driver.combineLatest(image, input.title, price, purchaseDate) { (image: $0, name: $1, price: $2, purchaceDate: $3) }
 
         let results = input.saveButtonTap
             .asObservable()
             .withLatestFrom(parameters)
             .flatMapLatest { params in
-                dependency.editContents(id: 2, image: imageDataString, name: params.name, price: params.price, purchaseDate: params.purchaceDate)
+                dependency.editContents(id: 2, image: params.image, name: params.name, price: params.price, purchaseDate: params.purchaceDate)
                     .asObservable().materialize()
             }.share(replay: 1)
 

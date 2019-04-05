@@ -33,26 +33,28 @@ class ContentsAddViewController: UIViewController, ViewController {
     @IBOutlet weak var contentsNameTextField: UITextField! {
         didSet {
             contentsNameTextField.placeholder = "テキスト入力"
+            contentsNameTextField.clearButtonMode = .whileEditing
         }
     }
 
     @IBOutlet weak var contentsPriceLabel: UILabel! {
         didSet {
-            contentsNameLabel.text = "金額"
-            contentsNameLabel.textAlignment = .left
+            contentsPriceLabel.text = "金額"
+            contentsPriceLabel.textAlignment = .left
         }
     }
 
     @IBOutlet weak var contentsPriceTextField: UITextField! {
         didSet {
             contentsPriceTextField.placeholder = "テキスト入力"
+            contentsPriceTextField.clearButtonMode = .whileEditing
         }
     }
 
     @IBOutlet weak var purchaseDateLabel: UILabel! {
         didSet {
-            contentsNameLabel.text = "購入日"
-            contentsNameLabel.textAlignment = .left
+            purchaseDateLabel.text = "購入日"
+            purchaseDateLabel.textAlignment = .left
         }
     }
 
@@ -73,22 +75,20 @@ class ContentsAddViewController: UIViewController, ViewController {
         datePicker.datePickerMode = .date
         return datePicker
     }()
-    
-    private let disposeBag: DisposeBag = .init()
-    private lazy var viewModel = ContentsAddViewModelImpl(
-        input: (
-            image: contentsImageView.image!,
-            title: contentsNameTextField.rx.text.orEmpty.asDriver(),
-            price: contentsPriceTextField.rx.text.orEmpty.asDriver(),
-            purchaseDate: purchaseDateTextField.rx.text.orEmpty.asDriver(),
-            saveButtonTap: saveButton.rx.tap.asSignal()
-        )
-        ,dependency: ContentsRepositoryImpl())
+
+    private var viewModel: ContentsAddViewModel!
+
+    private var routing: ContentsAddRouting! {
+        didSet {
+            routing.viewController = self
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = Color.Palette.gray
+        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
         setupNavBar()
         bindUI()
     }
@@ -100,8 +100,8 @@ class ContentsAddViewController: UIViewController, ViewController {
     private func bindUI() {
         closeButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                self.dismiss(animated: true)
-            }).disposed(by: disposeBag)
+                self.routing.showHome()
+            }).disposed(by: viewModel.disposeBag)
 
         contentsPickerButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
@@ -110,25 +110,28 @@ class ContentsAddViewController: UIViewController, ViewController {
                 imagePic.sourceType = .photoLibrary
                 imagePic.allowsEditing = true
                 self.present(imagePic, animated: true)
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
         purchaseDateTextField.rx.controlEvent(.allTouchEvents)
             .subscribe(onNext: { [unowned self] _ in
                 self.purchaseDateTextField.inputView = self.datePicker
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
         datePicker.rx.controlEvent(.valueChanged)
             .subscribe(onNext: { [unowned self] _ in
                 let formatter = DateFormatter()
                 formatter.dateFormat = "yyyy/MM/dd"
                 self.purchaseDateTextField.text = formatter.string(from: self.datePicker.date)
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
         viewModel.responseError.skip(1)
             .subscribe(onNext: { [unowned self] _ in
                 self.showAlertDialog(title: "レスポンスエラー", message: "データの追加に失敗しました")
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
+//        viewModel.imageView.asObservable()
+//            .bind(to: contentsImageView.rx.image)
+//            .disposed(by: viewModel.disposeBag)
     }
 
     private func setupNavBar() {
@@ -157,6 +160,14 @@ extension ContentsAddViewController: UIImagePickerControllerDelegate, UINavigati
 extension ContentsAddViewController {
     static func createInstance() -> ContentsAddViewController {
         let instance = R.storyboard.contentsAddViewController.contentsAddViewController()!
+        instance.viewModel = ContentsAddViewModelImpl(
+            input: (
+                title: instance.contentsNameTextField.rx.text.orEmpty.asDriver(),
+                price: instance.contentsPriceTextField.rx.text.orEmpty.asDriver(),
+                purchaseDate: instance.purchaseDateTextField.rx.text.orEmpty.asDriver(),
+                saveButtonTap: instance.saveButton.rx.tap.asSignal()
+            ),dependency: ContentsRepositoryImpl())
+        instance.routing = ContentsAddRoutingImpl()
         return instance
     }
 }

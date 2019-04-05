@@ -11,7 +11,7 @@ import Foundation
 
 final class FetchContenstsListAPI {
     struct Request: AppRequestType {
-        typealias Response = ContentsListEntity.Response
+        typealias Response = ContentsListEntity
 
         let limit: Int
         let page: Int

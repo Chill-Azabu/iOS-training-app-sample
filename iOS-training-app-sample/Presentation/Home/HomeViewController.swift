@@ -25,18 +25,20 @@ class HomeViewController: UIViewController {
         }
     }
 
-    private let disposeBag: DisposeBag = .init()
     private var dataSource = ContentsDataSource(items: [])
 
-    private lazy var viewModel = HomeViewModelImpl(
-        input: rx.viewWillAppear,
-        dependency: ContentsRepositoryImpl()
-    )
+    private var viewModel: HomeViewModel!
+    private var routing: HomeRouting! {
+        didSet {
+            routing.viewController = self
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = Color.Palette.gray
+        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
         setupNavBar()
     }
 
@@ -47,33 +49,36 @@ class HomeViewController: UIViewController {
 
         addButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                let nc = UINavigationController(rootViewController: ContentsAddViewController.createInstance())
-                self.present(nc, animated: true)
-            }).disposed(by: disposeBag)
+                self.routing.showContentAdd()
+            }).disposed(by: viewModel.disposeBag)
 
         // indexpathをVCに渡して遷移する
         tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
-                let vc = ContentsEditViewController.createInstance(indexPath: indexPath.row)
-                self.tabBarController?.navigationController?.pushViewController(vc, animated: true)
-            }).disposed(by: disposeBag)
+                self.routing.showContentsEdit(indexPath: indexPath.row)
+            }).disposed(by: viewModel.disposeBag)
 
         loadButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 self.tableView.reloadData()
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
-        viewModel.contentsList
-            .subscribe(onNext: { [unowned self] results in
-                self.dataSource.items = results
-                self.tableView.reloadData()
-            }).disposed(by: disposeBag)
+//        viewModel.contentsList
+//            .subscribe(onNext: { [unowned self] results in
+//                self.dataSource.items = results
+//                self.tableView.reloadData()
+//            }).disposed(by: viewModel.disposeBag)
         }
 }
 
 extension HomeViewController {
     static func createInstance() -> HomeViewController {
         let instance = R.storyboard.homeViewController.homeViewController()!
+        instance.viewModel = HomeViewModelImpl(
+            input: instance.rx.viewWillAppear,
+            dependency: ContentsRepositoryImpl()
+        )
+        instance.routing = HomeRoutingImpl()
         return instance
     }
 }

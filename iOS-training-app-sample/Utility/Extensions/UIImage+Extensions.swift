@@ -12,7 +12,6 @@ import Kingfisher
 
 extension UIImageView {
     final func applyImage(with url: URL) {
-
         self.kf.setImage(with: url) { [weak self] image, error, _, _ in
             if let _ = error, let image = image {
                 self?.image = image

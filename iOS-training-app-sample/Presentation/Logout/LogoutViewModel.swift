@@ -14,6 +14,7 @@ protocol LogoutViewModel: ViewModel {
     typealias Dependency = (
         UserAccountRepositoryImpl
     )
+    var disposeBag: DisposeBag { get }
     var responseError: BehaviorRelay<Error?> { get }
     var didLogoutTap: PublishRelay<Void> { get }
 }
@@ -21,11 +22,13 @@ protocol LogoutViewModel: ViewModel {
 final class LogoutViewModelImpl: LogoutViewModel {
 
     private let dependency: Dependency
+    let disposeBag: DisposeBag
     let responseError: BehaviorRelay<Error?>
     let didLogoutTap: PublishRelay<Void>
     
     init(logoutButtonTap: Signal<Void>, dependency: Dependency) {
         self.dependency = dependency
+        self.disposeBag = DisposeBag()
         self.responseError = BehaviorRelay<Error?>(value: nil)
         self.didLogoutTap = PublishRelay<Void>()
 

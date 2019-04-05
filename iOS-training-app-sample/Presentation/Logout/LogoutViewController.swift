@@ -18,36 +18,45 @@ class LogoutViewController: UIViewController, ViewController {
         }
     }
     
-    private lazy var viewModel = LogoutViewModelImpl(
-        logoutButtonTap: logoutButton.rx.tap.asSignal(),
-        dependency: UserAccountRepositoryImpl()
-    )
-    private let disposeBag: DisposeBag = .init()
+    private var viewModel: LogoutViewModelImpl!
+    private var routing: LogoutRouting! {
+        didSet {
+            routing.viewController = self
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = Color.Palette.gray
+        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
         title = "設定"
 
+        self.bindView()
+    }
+
+    private func bindView() {
         viewModel.responseError.skip(1)
             .subscribe(onNext: { [unowned self] _ in
                 self.showAlertDialog(title: "error", message: "confirm error")
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
 
         viewModel.didLogoutTap
             .subscribe(onNext: { [unowned self] _ in
-                let nc = UINavigationController(rootViewController: SignInViewController.createInstance())
-                AppDelegate.shared.window?.rootViewController = nc
+                self.routing.showSignIn()
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
     }
 }
 
 extension LogoutViewController {
     static func createInstance() -> LogoutViewController {
         let instance = R.storyboard.logoutViewController.logoutViewController()!
+        instance.viewModel = LogoutViewModelImpl(logoutButtonTap: instance.logoutButton.rx.tap.asSignal(),
+                                                 dependency: UserAccountRepositoryImpl()
+        )
+        instance.routing = LogoutRoutingImpl()
         return instance
     }
 }

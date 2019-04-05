@@ -20,6 +20,7 @@ protocol SignUpViewModel: ViewModel {
     typealias Dependency = (
         UserAccountRepositoryImpl
     )
+    var disposeBag: DisposeBag { get }
     var isValid: Driver<Bool> { get }
     var responseError: BehaviorRelay<Error?> { get }
     var didSignUpTap: PublishRelay<Void> { get }
@@ -32,11 +33,13 @@ final class SignUpViewModelImpl: SignUpViewModel {
     private let isPasswordValid: Driver<Bool>
     private let isPasswordConfValid: Driver<Bool>
 
+    let disposeBag: DisposeBag
     let isValid: Driver<Bool>
     let responseError: BehaviorRelay<Error?>
     let didSignUpTap: PublishRelay<Void>
 
     init(input: Input, dependency: Dependency) {
+        self.disposeBag = DisposeBag()
         self.dependency = dependency
         self.responseError = BehaviorRelay<Error?>(value: nil)
         self.didSignUpTap = PublishRelay<Void>()

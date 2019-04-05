@@ -4,6 +4,7 @@
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -18,26 +19,26 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="p0Q-Vy-NzK">
-                                <rect key="frame" x="60" y="80" width="255" height="371.5"/>
+                                <rect key="frame" x="60" y="80" width="255" height="351.5"/>
                                 <subviews>
-                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="40" translatesAutoresizingMaskIntoConstraints="NO" id="MFE-ij-AuW">
-                                        <rect key="frame" x="0.0" y="0.0" width="255" height="120"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="MFE-ij-AuW">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="100"/>
                                         <subviews>
                                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="WtK-Ju-M5t">
-                                                <rect key="frame" x="0.0" y="0.0" width="140" height="120"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="120" height="100"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="120" id="arz-Tb-Njc"/>
-                                                    <constraint firstAttribute="width" constant="140" id="rve-Bc-0Ua"/>
+                                                    <constraint firstAttribute="height" constant="100" id="arz-Tb-Njc"/>
+                                                    <constraint firstAttribute="width" constant="120" id="rve-Bc-0Ua"/>
                                                 </constraints>
                                             </imageView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IRH-30-Vrp">
-                                                <rect key="frame" x="209" y="0.0" width="46" height="120"/>
+                                                <rect key="frame" x="209" y="0.0" width="46" height="100"/>
                                                 <state key="normal" title="Button"/>
                                             </button>
                                         </subviews>
                                     </stackView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="30" translatesAutoresizingMaskIntoConstraints="NO" id="XXu-EU-N6g">
-                                        <rect key="frame" x="0.0" y="160" width="255" height="211.5"/>
+                                        <rect key="frame" x="0.0" y="140" width="255" height="211.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="fRA-96-xzr">
                                                 <rect key="frame" x="0.0" y="0.0" width="255" height="50.5"/>

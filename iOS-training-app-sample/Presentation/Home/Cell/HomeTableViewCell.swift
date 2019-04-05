@@ -68,7 +68,8 @@ class HomeTableViewCell: UITableViewCell {
         fatalError()
     }
 
-    func setViewData(data: ContentsListEntity.Response) {
+    func setViewData(data: ContentsListEntity) {
+        guard let data = data.result.first else { return }
         titleLabel.text = data.name
         valueLabel.text = String(data.price) + "税"
         dateLabel.text = data.purchaseDate.replacingOccurrences(of: "-", with: "/")

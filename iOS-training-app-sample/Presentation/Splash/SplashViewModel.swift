@@ -7,29 +7,30 @@
 //
 
 import Foundation
+import RxSwift
 import RxCocoa
 
-enum LaunchPath: Int {
-    case signIn
-    case signUp
-    case home
+enum LaunchPath {
+    case signIn, signUp, home
 }
 
 protocol SplashViewModel {
-    func validate()
+    var disposeBag: DisposeBag { get }
     var launchPath: BehaviorRelay<LaunchPath> { get }
 }
 
 final class SplashViewModelImpl: SplashViewModel {
 
+    let disposeBag: DisposeBag
     let launchPath: BehaviorRelay<LaunchPath>
 
     init() {
+        self.disposeBag = DisposeBag()
         self.launchPath = BehaviorRelay<LaunchPath>(value: .signIn)
-        self.validate()
+        self.validateScreenPath()
     }
 
-    func validate() {
+    private func validateScreenPath() {
         if !AppUserDefaults.getFirstLaunchFrag() {
             AppUserDefaults.setFirstLaunchFrag()
             self.launchPath.accept(.signUp)

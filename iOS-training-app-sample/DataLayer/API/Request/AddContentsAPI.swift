@@ -11,7 +11,7 @@ import Foundation
 
 final class AddContenstsAPI {
     struct Request: AppRequestType {
-        typealias Response = ContentsRegisterEntity.Response
+        typealias Response = ContentsRegisterEntity
 
         let image: String
         let name: String

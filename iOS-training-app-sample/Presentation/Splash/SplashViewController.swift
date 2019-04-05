@@ -18,42 +18,48 @@ class SplashViewController: UIViewController {
         }
     }
 
-    private lazy var viewModel = SplashViewModelImpl()
-    private let disposebag: DisposeBag = .init()
+    private var viewModel: SplashViewModel!
+    private var routing: SplashRouting! {
+        didSet {
+            routing.viewController = self
+        }
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = Color.Palette.yellow
 
+        self.bindView()
+
         logoImageView.alpha = 0.0
         UIView.animate(withDuration: 1.5, animations: { [unowned self] in
             self.logoImageView.alpha = 1.0
-            }, completion: { [unowned self] finished in
-                self.bind()
+            }, completion: { finished in
+                print(finished)
         })
     }
     
-    private func bind() {
+    private func bindView() {
         viewModel.launchPath
             .subscribe(onNext: { [unowned self] path in
                 switch path {
                 case .signUp:
-                    let nc = UINavigationController(rootViewController: SignUpViewController.createInstance())
-                    self.present(nc, animated: true)
+                    self.routing.showSignUp()
                 case .signIn:
-                    let nc = UINavigationController(rootViewController: SignInViewController.createInstance())
-                    self.present(nc, animated: true)
+                    self.routing.showSignIn()
                 case .home:
-                    self.navigationController?.pushViewController(TabBarViewController(), animated: true)
+                    self.routing.showHome()
                 }
             })
-            .disposed(by: disposebag)
+            .disposed(by: viewModel.disposeBag)
     }
 }
 
 extension SplashViewController {
     static func createInstance() -> SplashViewController {
         let instance = R.storyboard.splashViewController.splashViewController()!
+        instance.viewModel = SplashViewModelImpl()
+        instance.routing = SplashRoutingImpl()
         return instance
     }
 }

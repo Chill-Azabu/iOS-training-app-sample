@@ -11,12 +11,12 @@ import Foundation
 
 final class SignInAPI {
     struct Request: AppRequestType {
-        typealias Response = UserAccountEntity.Response
+        typealias Response = UserAccountEntity
 
         // メールアドレス
-        var email: String
+        let email: String
         // パスワード
-        var password: String
+        let password: String
 
         var method: HTTPMethod {
             return APIRoutes.signIn.configurePath().method
@@ -27,11 +27,10 @@ final class SignInAPI {
         }
 
         var bodyParameters: BodyParameters? {
-            return FormURLEncodedBodyParameters(formObject: [
-                "email": self.email,
-                "password": self.password
-                ]
-            )
+            return JSONBodyParameters(JSONObject: [
+                "email": email,
+                "password": password
+                ])
         }
     }
 }

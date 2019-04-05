@@ -20,12 +20,12 @@ enum APIRoutes {
     // タプルで設定することで数字で指定せずに書ける。
     func configurePath() -> (method: HTTPMethod, path: String) {
         switch self {
-        case .signIn:               return (.post, "login")
-        case .signUp:               return (.post, "sign_up")
-        case .fetchContenstsList:   return (.get, "books")
-        case .addContents:          return (.post, "books")
-        case .editContents:         return (.put, "books")
-        case .logout:               return (.delete, "logout")
+        case .signIn:               return (.post, "/login")
+        case .signUp:               return (.post, "/sign_up")
+        case .fetchContenstsList:   return (.get, "/books")
+        case .addContents:          return (.post, "/books")
+        case .editContents:         return (.put, "/books")
+        case .logout:               return (.delete, "/logout")
         }
     }
 }

@@ -12,28 +12,33 @@ import Result
 
 // ユーザーアカウント関連のデータ操作
 protocol UserAccountRepository {
-    func signIn(email: String, password: String) -> Single<UserAccountEntity.Response>
-    func signUp(email: String, password: String) -> Single<UserAccountEntity.Response>
+    func signIn(email: String, password: String) -> Single<UserAccountEntity>
+    func signUp(email: String, password: String) -> Single<UserAccountEntity>
     func logout() -> Single<LogoutEntity>
 }
 
 final class UserAccountRepositoryImpl: UserAccountRepository {
-    static let shared: UserAccountRepository  = UserAccountRepositoryImpl()
 
     private let dataStore: UserAccountDataStore = UserAccountDataStoreImpl()
 
-    func signIn(email: String, password: String) -> Single<UserAccountEntity.Response> {
+    func signIn(email: String, password: String) -> Single<UserAccountEntity> {
         return dataStore.signIn(email: email, password: password)
-            .do(onSuccess: { result in
-                AppUserDefaults.putStringValue(result.token, keyName: "token")
+            .do(onSuccess: { response in
+                AppUserDefaults.setToken(token: response.result.token)
             })
     }
 
-    func signUp(email: String, password: String) -> Single<UserAccountEntity.Response> {
+    func signUp(email: String, password: String) -> Single<UserAccountEntity> {
         return dataStore.signUp(email: email, password: password)
+            .do(onSuccess: { response in
+                AppUserDefaults.setToken(token: response.result.token)
+            })
     }
 
     func logout() -> Single<LogoutEntity> {
         return dataStore.logout()
+            .do(onSuccess: { _ in
+                AppUserDefaults.clearAuthToken()
+            })
     }
 }

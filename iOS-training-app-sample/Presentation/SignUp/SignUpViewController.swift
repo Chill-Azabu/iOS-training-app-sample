@@ -22,6 +22,7 @@ class SignUpViewController: UIViewController, ViewController {
     @IBOutlet weak var emailTextField: UITextField! {
         didSet {
             emailTextField.placeholder = "入力してください"
+            emailTextField.clearButtonMode = .whileEditing
         }
     }
 
@@ -36,6 +37,7 @@ class SignUpViewController: UIViewController, ViewController {
         didSet {
             passwordTextField.placeholder = "入力してください"
             passwordTextField.isSecureTextEntry = true
+            emailTextField.clearButtonMode = .whileEditing
         }
     }
 
@@ -50,6 +52,7 @@ class SignUpViewController: UIViewController, ViewController {
         didSet {
             passwordConfTextField.placeholder = "入力してください"
             passwordConfTextField.isSecureTextEntry = true
+            passwordConfTextField.clearButtonMode = .whileEditing
         }
     }
     
@@ -63,26 +66,19 @@ class SignUpViewController: UIViewController, ViewController {
         return closeButton
     }()
 
-    private let disposeBag: DisposeBag = .init()
-    private lazy var viewModel = SignUpViewModelImpl(
-        input: (
-            email: emailTextField.rx.text.orEmpty.asDriver(),
-            password: passwordTextField.rx.text.orEmpty.asDriver(),
-            passwordConf: passwordConfTextField.rx.text.orEmpty.asDriver(),
-            signUpTap: saveButton.rx.tap.asSignal()
-        ),
-        dependency: (UserAccountRepositoryImpl())
-    )
+    private var viewModel: SignUpViewModel!
+    private var routing: SignUpRouting!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = Color.Palette.gray
+        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
         setupNavBar()
 
         bindView()
     }
-
+    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         self.view.endEditing(true)
     }
@@ -100,28 +96,38 @@ class SignUpViewController: UIViewController, ViewController {
                 self.saveButton.isEnabled = valid
                 self.saveButton.tintColor = valid ? .blue : .lightGray
             })
-            .disposed(by: disposeBag)
+            .disposed(by: viewModel.disposeBag)
 
         viewModel.didSignUpTap
             .subscribe(onNext: { [unowned self] _ in
-                self.navigationController?.pushViewController(TabBarViewController(), animated: true)
-            }).disposed(by: disposeBag)
+                self.routing.showHome()
+            }).disposed(by: viewModel.disposeBag)
 
         viewModel.responseError.skip(1)
             .subscribe(onNext: { [unowned self] error in
                 self.showAlertDialog(title: "エラー", message: (error?.localizedDescription)!)
-            }).disposed(by: disposeBag)
+            }).disposed(by: viewModel.disposeBag)
 
         closeButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                self.navigationController?.popViewController(animated: true)
-            }).disposed(by: disposeBag)
+                self.routing.showSignIn()
+            }).disposed(by: viewModel.disposeBag)
     }
 }
 
 extension SignUpViewController {
     static func createInstance() -> SignUpViewController {
         let instance = R.storyboard.signUpViewController.signUpViewController()!
+        instance.viewModel = SignUpViewModelImpl(
+            input: (
+                email: instance.emailTextField.rx.text.orEmpty.asDriver(),
+                password: instance.passwordTextField.rx.text.orEmpty.asDriver(),
+                passwordConf: instance.passwordConfTextField.rx.text.orEmpty.asDriver(),
+                signUpTap: instance.saveButton.rx.tap.asSignal()
+            ),
+            dependency: (UserAccountRepositoryImpl())
+        )
+        instance.routing = SignUpRoutingImpl()
         return instance
     }
 }

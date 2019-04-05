@@ -18,17 +18,19 @@ protocol HomeViewModel: ViewModel {
     typealias Dependency = (
         ContentsRepositoryImpl
     )
+    var disposeBag: DisposeBag { get }
     var responseError: BehaviorRelay<Error?> { get }
 }
 
 final class HomeViewModelImpl: HomeViewModel {
     let responseError: BehaviorRelay<Error?>
-    let disposeBag: DisposeBag = .init()
-    let contentsList: PublishRelay<[ContentsListEntity.Response]>
+    let disposeBag: DisposeBag
+    let contentsList: PublishRelay<[ContentsListEntity]>
 
     init(input: Input, dependency: Dependency) {
+        self.disposeBag = DisposeBag()
         self.responseError = BehaviorRelay<Error?>(value: nil)
-        self.contentsList = PublishRelay<[ContentsListEntity.Response]>()
+        self.contentsList = PublishRelay<[ContentsListEntity]>()
 
         let results = input
             .flatMapLatest {
