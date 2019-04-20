@@ -10,32 +10,49 @@ import UIKit
 
 class HomeTableViewCell: UITableViewCell {
 
-    let titleLabel: UILabel = {
+    struct ViewData {
+        let name: String
+        let price: Int
+        let image: String
+        let purchaseDate: String
+    }
+
+    private let titleLabel: UILabel = {
         let titlelabel = UILabel()
         titlelabel.text = "書籍名"
         titlelabel.translatesAutoresizingMaskIntoConstraints = false
         return titlelabel
     }()
 
-    let valueLabel: UILabel = {
+    private let valueLabel: UILabel = {
         let value = UILabel()
         value.text = "価格"
         value.translatesAutoresizingMaskIntoConstraints = false
         return value
     }()
 
-    let dateLabel: UILabel = {
+    private let dateLabel: UILabel = {
         let date = UILabel()
         date.text = "購入日"
         date.translatesAutoresizingMaskIntoConstraints = false
         return date
     }()
 
-    lazy var bookImageView: UIImageView = {
+    private lazy var bookImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.frame = CGRect(x: 35, y: 0, width: 80, height: 100)
         return imageView
     }()
+
+    var viewData: ViewData! {
+        didSet {
+            titleLabel.text = viewData.name
+            valueLabel.text = String(viewData.price) + "税"
+            dateLabel.text = viewData.purchaseDate.replacingOccurrences(of: "-", with: "/")
+            bookImageView.kf.indicatorType = .activity
+            bookImageView.applyImage(with: URL(string: viewData.image)!)
+        }
+    }
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -66,14 +83,5 @@ class HomeTableViewCell: UITableViewCell {
 
     required init(coder aDecoder: NSCoder) {
         fatalError()
-    }
-
-    func setViewData(data: ContentsListEntity) {
-        guard let data = data.result.first else { return }
-        titleLabel.text = data.name
-        valueLabel.text = String(data.price) + "税"
-        dateLabel.text = data.purchaseDate.replacingOccurrences(of: "-", with: "/")
-        bookImageView.kf.indicatorType = .activity
-        bookImageView.applyImage(with: URL(string: data.image)!)
     }
 }

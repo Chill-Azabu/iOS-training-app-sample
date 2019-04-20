@@ -20,28 +20,40 @@ protocol HomeViewModel: ViewModel {
     )
     var disposeBag: DisposeBag { get }
     var responseError: BehaviorRelay<Error?> { get }
+    var contentsList: PublishRelay<[HomeTableViewCell.ViewData]> { get }
 }
 
 final class HomeViewModelImpl: HomeViewModel {
+
+    private var page = 0
+
     let responseError: BehaviorRelay<Error?>
     let disposeBag: DisposeBag
-    let contentsList: PublishRelay<[ContentsListEntity]>
+    let contentsList: PublishRelay<[HomeTableViewCell.ViewData]>
 
     init(input: Input, dependency: Dependency) {
         self.disposeBag = DisposeBag()
         self.responseError = BehaviorRelay<Error?>(value: nil)
-        self.contentsList = PublishRelay<[ContentsListEntity]>()
+        self.contentsList = PublishRelay<[HomeTableViewCell.ViewData]>()
 
         let results = input
-            .flatMapLatest {
-                dependency.fetchContentsList(limit: 1, page: 10)
+            .do { [unowned self] in
+                self.page += 1
+            }
+            .flatMapLatest { [unowned self] in
+                dependency.fetchContentsList(limit: AppResource.Const.limit, page: self.page)
                 .asObservable().materialize()
             }.share(replay: 1)
 
         _ = results
             .elements()
+            .map { results -> [HomeTableViewCell.ViewData] in
+                guard let item = results.result.first else { return [] }
+                let items: [HomeTableViewCell.ViewData] = [HomeTableViewCell.ViewData.init(name: item.name, price: item.price, image: item.image, purchaseDate: item.purchaseDate)]
+                return items
+            }
             .subscribe(onNext: { [unowned self] results in
-                self.contentsList.accept ([results])
+                self.contentsList.accept (results)
             })
 
         _ = results

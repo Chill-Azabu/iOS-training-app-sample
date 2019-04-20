@@ -12,20 +12,27 @@ import RxDataSources
 
 class HomeViewController: UIViewController {
 
+    typealias DataSource = HomeContentsDataSource<HomeTableViewCell, HomeTableViewCell.ViewData>
+
     @IBOutlet weak var tableView: UITableView! {
         didSet {
             tableView.dataSource = dataSource
-            tableView.register(HomeTableViewCell.self, forCellReuseIdentifier: "cell")
+            tableView.register(UINib(nibName: HomeTableViewCell.className, bundle: nil), forCellReuseIdentifier: HomeTableViewCell.className)
         }
     }
+
+    private lazy var dataSource: DataSource = {
+        return HomeContentsDataSource(
+        cellReuseIdentifier: HomeTableViewCell.className) { cell, item, _ in
+            cell.viewData = item
+        }
+    }()
 
     @IBOutlet weak var loadButton: UIButton! {
         didSet {
             loadButton.setTitle("読み込む", for: .normal)
         }
     }
-
-    private var dataSource = ContentsDataSource(items: [])
 
     private var viewModel: HomeViewModel!
     private var routing: HomeRouting! {
@@ -55,7 +62,7 @@ class HomeViewController: UIViewController {
         // indexpathをVCに渡して遷移する
         tableView.rx.itemSelected
             .subscribe(onNext: { [unowned self] indexPath in
-                self.routing.showContentsEdit(indexPath: indexPath.row)
+                self.routing.showContentsEdit(indexPath: Int(indexPath.row))
             }).disposed(by: viewModel.disposeBag)
 
         loadButton.rx.tap
@@ -63,11 +70,11 @@ class HomeViewController: UIViewController {
                 self.tableView.reloadData()
             }).disposed(by: viewModel.disposeBag)
 
-//        viewModel.contentsList
-//            .subscribe(onNext: { [unowned self] results in
-//                self.dataSource.items = results
-//                self.tableView.reloadData()
-//            }).disposed(by: viewModel.disposeBag)
+        viewModel.contentsList
+            .subscribe(onNext: { [unowned self] results in
+                self.dataSource.set(listItems: results)
+                self.tableView.reloadData()
+            }).disposed(by: viewModel.disposeBag)
         }
 }
 
