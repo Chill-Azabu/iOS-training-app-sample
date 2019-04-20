@@ -34,6 +34,12 @@ class HomeViewController: UIViewController {
         }
     }
 
+    private lazy var addButton: UIBarButtonItem = {
+        let addButton = UIBarButtonItem(title: "追加", style: .plain, target: self, action: nil)
+        tabBarController?.navigationItem.setRightBarButton(addButton, animated: true)
+        return addButton
+    }()
+
     private var viewModel: HomeViewModel!
     private var routing: HomeRouting! {
         didSet {
@@ -44,16 +50,13 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        title = "書籍一覧"
         view.backgroundColor = AppResource.Color.gray
         navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
-        setupNavBar()
+        bindUI()
     }
 
-    private func setupNavBar() {
-        title = "書籍一覧"
-        let addButton = UIBarButtonItem(title: "追加", style: .plain, target: self, action: nil)
-        tabBarController?.navigationItem.setRightBarButton(addButton, animated: true)
-
+    private func bindUI() {
         addButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
                 self.routing.showContentAdd()
