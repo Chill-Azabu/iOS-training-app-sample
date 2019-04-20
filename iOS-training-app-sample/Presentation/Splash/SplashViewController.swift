@@ -29,13 +29,11 @@ class SplashViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = Color.Palette.yellow
 
-        self.bindView()
-
         logoImageView.alpha = 0.0
         UIView.animate(withDuration: 1.5, animations: { [unowned self] in
             self.logoImageView.alpha = 1.0
-            }, completion: { finished in
-                print(finished)
+            }, completion: { _ in
+                self.bindView()
         })
     }
     

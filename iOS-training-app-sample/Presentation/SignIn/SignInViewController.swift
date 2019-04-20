@@ -61,7 +61,17 @@ class SignInViewController: UIViewController, ViewController {
             routing.viewController = self
         }
     }
-    private var viewModel: SignInViewModel!
+    
+    private lazy var viewModel: SignInViewModel = {
+        let viewModel = SignInViewModelImpl(input: (
+                email: emailTextField.rx.text.orEmpty.asDriver(),
+                password: passwordTextField.rx.text.orEmpty.asDriver(),
+                signInTap: signInButton.rx.tap.asSignal()
+                ),
+            dependency: (UserAccountRepositoryImpl())
+            )
+        return viewModel
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,7 +94,7 @@ class SignInViewController: UIViewController, ViewController {
 
         viewModel.didSignInTap
             .subscribe(onNext: { [unowned self] _ in
-
+                self.routing.showHome()
             })
             .disposed(by: viewModel.disposeBag)
 
@@ -108,13 +118,6 @@ class SignInViewController: UIViewController, ViewController {
 extension SignInViewController {
     static func createInstance() -> SignInViewController {
         let instance = R.storyboard.signInViewController.signInViewController()!
-        instance.viewModel = SignInViewModelImpl(input: (
-            email: instance.emailTextField.rx.text.orEmpty.asDriver(),
-            password: instance.passwordTextField.rx.text.orEmpty.asDriver(),
-            signInTap: instance.signInButton.rx.tap.asSignal()
-            ),
-            dependency: (UserAccountRepositoryImpl())
-        )
         instance.routing = SignInRoutingImpl()
         return instance
     }

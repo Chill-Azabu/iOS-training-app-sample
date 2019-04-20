@@ -66,7 +66,19 @@ class SignUpViewController: UIViewController, ViewController {
         return closeButton
     }()
 
-    private var viewModel: SignUpViewModel!
+    private lazy var viewModel: SignUpViewModel = {
+        let viewModel = SignUpViewModelImpl(
+            input: (
+                email: emailTextField.rx.text.orEmpty.asDriver(),
+                password: passwordTextField.rx.text.orEmpty.asDriver(),
+                passwordConf: passwordConfTextField.rx.text.orEmpty.asDriver(),
+                signUpTap: saveButton.rx.tap.asSignal()
+            ),
+            dependency: (UserAccountRepositoryImpl())
+        )
+        return viewModel
+    }()
+
     private var routing: SignUpRouting!
 
     override func viewDidLoad() {
@@ -118,15 +130,6 @@ class SignUpViewController: UIViewController, ViewController {
 extension SignUpViewController {
     static func createInstance() -> SignUpViewController {
         let instance = R.storyboard.signUpViewController.signUpViewController()!
-        instance.viewModel = SignUpViewModelImpl(
-            input: (
-                email: instance.emailTextField.rx.text.orEmpty.asDriver(),
-                password: instance.passwordTextField.rx.text.orEmpty.asDriver(),
-                passwordConf: instance.passwordConfTextField.rx.text.orEmpty.asDriver(),
-                signUpTap: instance.saveButton.rx.tap.asSignal()
-            ),
-            dependency: (UserAccountRepositoryImpl())
-        )
         instance.routing = SignUpRoutingImpl()
         return instance
     }
