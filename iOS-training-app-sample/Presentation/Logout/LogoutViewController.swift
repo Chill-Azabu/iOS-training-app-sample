@@ -18,7 +18,13 @@ class LogoutViewController: UIViewController, ViewController {
         }
     }
     
-    private var viewModel: LogoutViewModelImpl!
+    private lazy var viewModel: LogoutViewModelImpl = {
+        let viewModel = LogoutViewModelImpl(logoutButtonTap: logoutButton.rx.tap.asSignal(),
+                                                 dependency: UserAccountRepositoryImpl()
+        )
+        return viewModel
+    }()
+
     private var routing: LogoutRouting! {
         didSet {
             routing.viewController = self
@@ -47,17 +53,14 @@ class LogoutViewController: UIViewController, ViewController {
                 self.routing.showSignIn()
             })
             .disposed(by: viewModel.disposeBag)
+        
     }
 }
 
 extension LogoutViewController {
     static func createInstance() -> LogoutViewController {
         let instance = R.storyboard.logoutViewController.logoutViewController()!
-        instance.viewModel = LogoutViewModelImpl(logoutButtonTap: instance.logoutButton.rx.tap.asSignal(),
-                                                 dependency: UserAccountRepositoryImpl()
-        )
         instance.routing = LogoutRoutingImpl()
         return instance
     }
 }
-
