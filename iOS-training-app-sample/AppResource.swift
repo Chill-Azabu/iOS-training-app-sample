@@ -37,11 +37,25 @@ struct AppResource {
         static let blue = #colorLiteral(red: 0.3960784314, green: 0.5215686275, blue: 0.7607843137, alpha: 1)
     }
 
+    struct Font {
+        static let size12: CGFloat = 12
+        static let size13: CGFloat = 13
+        static let size14: CGFloat = 14
+        static let size15: CGFloat = 15
+    }
+
     struct Const {
+        #if Debug
+            static let url = "http://54.250.239.8"
+        #elseif ReleasePRO
+            static let url = ""
+            // TODO: 本番用URL追記
+        #endif
+
         static let Version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String
         static let OSVersion = UIDevice.current.systemVersion
         static let Model = UIDevice.current.model
-        static let url = "http://54.250.239.8"
         static let token = "token"
+        static let limit = 10
     }
 }
