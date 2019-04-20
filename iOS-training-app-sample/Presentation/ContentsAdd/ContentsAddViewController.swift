@@ -65,24 +65,40 @@ class ContentsAddViewController: UIViewController, ViewController {
         return saveButton
     }()
 
-    private let closeButton: UIBarButtonItem = {
+    private lazy var closeButton: UIBarButtonItem = {
         let closeButton = UIBarButtonItem(title: "閉じる", style: .plain, target: self, action: nil)
         return closeButton
     }()
 
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         return datePicker
     }()
 
-    private var viewModel: ContentsAddViewModel!
+    private lazy var viewModel: ContentsAddViewModel = {
+        let viewModel = ContentsAddViewModelImpl(
+            input: (
+                title: contentsNameTextField.rx.text.orEmpty.asDriver(),
+                price: contentsPriceTextField.rx.text.orEmpty.asDriver(),
+                purchaseDate: purchaseDateTextField.rx.text.orEmpty.asDriver(),
+                saveButtonTap: saveButton.rx.tap.asSignal()
+            ),dependency: ContentsRepositoryImpl())
+        return viewModel
+    }()
 
     private var routing: ContentsAddRouting! {
         didSet {
             routing.viewController = self
         }
     }
+
+    private lazy var imagePic: UIImagePickerController = {
+        let imagePic = UIImagePickerController()
+        imagePic.sourceType = .photoLibrary
+        imagePic.allowsEditing = true
+        return imagePic
+    }()
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -105,11 +121,7 @@ class ContentsAddViewController: UIViewController, ViewController {
 
         contentsPickerButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                let imagePic = UIImagePickerController()
-                imagePic.delegate = self
-                imagePic.sourceType = .photoLibrary
-                imagePic.allowsEditing = true
-                self.present(imagePic, animated: true)
+                self.imagePic.present(self.imagePic, animated: true)
             }).disposed(by: viewModel.disposeBag)
 
         purchaseDateTextField.rx.controlEvent(.allTouchEvents)
@@ -129,9 +141,24 @@ class ContentsAddViewController: UIViewController, ViewController {
                 self.showAlertDialog(title: "レスポンスエラー", message: "データの追加に失敗しました")
             }).disposed(by: viewModel.disposeBag)
 
-//        viewModel.imageView.asObservable()
-//            .bind(to: contentsImageView.rx.image)
-//            .disposed(by: viewModel.disposeBag)
+        viewModel.imageView
+            .drive(onNext: { [unowned self] image in
+                self.contentsImageView.image = image
+            }).disposed(by: viewModel.disposeBag)
+
+        imagePic.rx.didFinishPickingMediaWithInfo
+            .subscribe(onNext: { [weak self] photoImage in
+                if let pickedImage = photoImage[.originalImage] as? UIImage {
+                    self?.contentsImageView.image = pickedImage
+                }
+                self?.imagePic.dismiss(animated: true)
+            }).disposed(by: viewModel.disposeBag)
+
+        imagePic.rx.didCancel
+            .subscribe(onNext: { [unowned self] _ in
+                self.imagePic.dismiss(animated: true)
+            }).disposed(by: viewModel.disposeBag)
+
     }
 
     private func setupNavBar() {
@@ -141,32 +168,9 @@ class ContentsAddViewController: UIViewController, ViewController {
     }
 }
 
-extension ContentsAddViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ imagePicker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-
-        if let pickedImage = info[.originalImage]
-            as? UIImage {
-            contentsImageView.image = pickedImage
-        }
-        dismiss(animated: true)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
-    }
-}
-
 extension ContentsAddViewController {
     static func createInstance() -> ContentsAddViewController {
         let instance = R.storyboard.contentsAddViewController.contentsAddViewController()!
-        instance.viewModel = ContentsAddViewModelImpl(
-            input: (
-                title: instance.contentsNameTextField.rx.text.orEmpty.asDriver(),
-                price: instance.contentsPriceTextField.rx.text.orEmpty.asDriver(),
-                purchaseDate: instance.purchaseDateTextField.rx.text.orEmpty.asDriver(),
-                saveButtonTap: instance.saveButton.rx.tap.asSignal()
-            ),dependency: ContentsRepositoryImpl())
         instance.routing = ContentsAddRoutingImpl()
         return instance
     }

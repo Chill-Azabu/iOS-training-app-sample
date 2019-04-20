@@ -24,6 +24,7 @@ protocol ContentsAddViewModel: ViewModel {
     var disposeBag: DisposeBag { get }
     var didEnd: PublishRelay<Void> { get }
     var responseError: BehaviorRelay<Error?> { get }
+    var imageView: Driver<UIImage> { get }
 }
 
 final class ContentsAddViewModelImpl: ContentsAddViewModel {

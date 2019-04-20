@@ -25,21 +25,19 @@ protocol ContentsEditViewModel: ViewModel {
     var disposeBag: DisposeBag { get }
     var didRequestEnd: PublishRelay<Void> { get }
     var responseError: BehaviorRelay<Error?> { get }
-    var indexPath: Int { get }
+    var imageView: Driver<UIImage> { get }
 }
 
 final class ContentsEditViewModelImpl: ContentsEditViewModel {
     let disposeBag: DisposeBag
     let didRequestEnd: PublishRelay<Void>
     let responseError: BehaviorRelay<Error?>
-    let indexPath: Int
     let imageView: Driver<UIImage>
 
     init(input: Input, dependency: Dependency, indexPath: Int) {
         self.disposeBag = DisposeBag()
         self.didRequestEnd = PublishRelay<Void>()
         self.responseError = BehaviorRelay<Error?>(value: nil)
-        self.indexPath = indexPath
         self.imageView = Driver<UIImage>.never()
 
         let image = self.imageView.map { image -> String in

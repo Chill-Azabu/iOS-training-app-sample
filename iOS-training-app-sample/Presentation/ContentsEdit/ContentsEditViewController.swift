@@ -59,23 +59,42 @@ class ContentsEditViewController: UIViewController, ViewController {
 
     @IBOutlet weak var purchaseDateTextField: UITextField!
 
-    private let saveButton: UIBarButtonItem = {
+    private lazy var saveButton: UIBarButtonItem = {
         let saveButton = UIBarButtonItem(title: "保存", style: .plain, target: self, action: nil)
         return saveButton
     }()
 
-    private let closeButton: UIBarButtonItem = {
+    private lazy var closeButton: UIBarButtonItem = {
         let closeButton = UIBarButtonItem(title: "閉じる", style: .plain, target: self, action: nil)
         return closeButton
     }()
 
-    private lazy var datePicker: UIDatePicker = {
+    private let datePicker: UIDatePicker = {
         let datePicker = UIDatePicker()
         datePicker.datePickerMode = .date
         return datePicker
     }()
 
-    private var viewModel: ContentsEditViewModel!
+    private lazy var imagePic: UIImagePickerController = {
+        let imagePic = UIImagePickerController()
+        imagePic.sourceType = .photoLibrary
+        imagePic.allowsEditing = true
+        return imagePic
+    }()
+
+    private var indexPath = 0
+
+    private lazy var viewModel: ContentsEditViewModel = {
+        let viewModel = ContentsEditViewModelImpl(
+            input: (
+                title: contentsNameTextField.rx.text.orEmpty.asDriver(),
+                price: contentsPriceTextField.rx.text.orEmpty.asDriver(),
+                purchaseDate: purchaseDateTextField.rx.text.orEmpty.asDriver(),
+                saveButtonTap: saveButton.rx.tap.asSignal()
+            ),dependency: ContentsRepositoryImpl(), indexPath: self.indexPath)
+        return viewModel
+    }()
+
     private var routing: ContentsEditRouting! {
         didSet {
             routing.viewController = self
@@ -88,10 +107,7 @@ class ContentsEditViewController: UIViewController, ViewController {
         view.backgroundColor = Color.Palette.gray
         navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
 
-        self.bindView()
-//        viewModel.imageView.asObservable()
-//            .bind(to: contentsImageView.rx.image)
-//            .disposed(by: viewModel.disposeBag)
+        bindView()
     }
 
     private func bindView() {
@@ -102,11 +118,7 @@ class ContentsEditViewController: UIViewController, ViewController {
 
         contentsPickerButton.rx.tap
             .subscribe(onNext: { [unowned self] _ in
-                let imagePic = UIImagePickerController()
-                imagePic.delegate = self
-                imagePic.sourceType = .photoLibrary
-                imagePic.allowsEditing = true
-                self.present(imagePic, animated: true)
+                self.imagePic.present(self.imagePic, animated: true)
             }).disposed(by: viewModel.disposeBag)
 
         purchaseDateTextField.rx.controlEvent(.allTouchEvents)
@@ -126,6 +138,23 @@ class ContentsEditViewController: UIViewController, ViewController {
                 self.showAlertDialog(title: "レスポンスエラー", message: "データの編集に失敗しました")
             }).disposed(by: viewModel.disposeBag)
 
+        viewModel.imageView
+            .drive(onNext: { pickedView in
+                self.contentsImageView.image = pickedView
+            }).disposed(by: viewModel.disposeBag)
+        
+        imagePic.rx.didFinishPickingMediaWithInfo
+            .subscribe(onNext: { [weak self] photoImage in
+                if let pickedImage = photoImage[.originalImage] as? UIImage {
+                    self?.contentsImageView.image = pickedImage
+                }
+                self?.imagePic.dismiss(animated: true)
+            }).disposed(by: viewModel.disposeBag)
+
+        imagePic.rx.didCancel
+            .subscribe(onNext: { [unowned self] _ in
+                self.imagePic.dismiss(animated: true)
+            }).disposed(by: viewModel.disposeBag)
     }
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -139,32 +168,10 @@ class ContentsEditViewController: UIViewController, ViewController {
     }
 }
 
-extension ContentsEditViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    func imagePickerController(_ imagePicker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]){
-
-        if let pickedImage = info[.originalImage]
-            as? UIImage {
-            contentsImageView.image = pickedImage
-        }
-        dismiss(animated: true)
-    }
-
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true)
-    }
-}
-
 extension ContentsEditViewController {
     static func createInstance(indexPath: Int) -> ContentsEditViewController {
         let instance = R.storyboard.contentsEditViewController.contentsEditViewController()!
-        instance.viewModel = ContentsEditViewModelImpl(
-            input: (
-                title: instance.contentsNameTextField.rx.text.orEmpty.asDriver(),
-                price: instance.contentsPriceTextField.rx.text.orEmpty.asDriver(),
-                purchaseDate: instance.purchaseDateTextField.rx.text.orEmpty.asDriver(),
-                saveButtonTap: instance.saveButton.rx.tap.asSignal()
-            ),dependency: ContentsRepositoryImpl(), indexPath: indexPath)
+        instance.indexPath = indexPath
         instance.routing = ContentsEditRoutingImpl()
         return instance
     }
