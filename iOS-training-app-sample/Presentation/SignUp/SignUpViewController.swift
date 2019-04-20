@@ -84,8 +84,8 @@ class SignUpViewController: UIViewController, ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.gray
-        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
+        view.backgroundColor = AppResource.Color.gray
+        navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
         setupNavBar()
 
         bindView()

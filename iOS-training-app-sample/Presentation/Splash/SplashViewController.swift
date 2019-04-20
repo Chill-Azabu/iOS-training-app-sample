@@ -27,7 +27,7 @@ class SplashViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = Color.Palette.yellow
+        view.backgroundColor = AppResource.Color.yellow
 
         logoImageView.alpha = 0.0
         UIView.animate(withDuration: 1.5, animations: { [unowned self] in

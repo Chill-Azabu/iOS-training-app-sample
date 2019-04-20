@@ -76,8 +76,8 @@ class SignInViewController: UIViewController, ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = Color.Palette.lightGray
-        navigationController?.navigationBar.barTintColor = Color.Palette.lightGray
+        view.backgroundColor = AppResource.Color.lightGray
+        navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
         title = "書籍一覧"
 
         bindView()
