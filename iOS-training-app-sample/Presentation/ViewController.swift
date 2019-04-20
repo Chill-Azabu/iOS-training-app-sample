@@ -17,15 +17,13 @@ extension ViewController where Self: UIViewController {
     func showAlertDialog(title: String, message: String) {
         let alert: UIAlertController = UIAlertController(title: title, message: message, preferredStyle:  UIAlertController.Style.alert)
 
-        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler:{
-            (action: UIAlertAction!) -> Void in
+        let defaultAction: UIAlertAction = UIAlertAction(title: "OK", style: UIAlertAction.Style.default) { _ in
             alert.dismiss(animated: true)
-        })
+        }
         // キャンセルボタン
-        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel, handler:{
-            (action: UIAlertAction!) -> Void in
+        let cancelAction: UIAlertAction = UIAlertAction(title: "キャンセル", style: UIAlertAction.Style.cancel) { _ in
             alert.dismiss(animated: true)
-        })
+        }
 
         // ③ UIAlertControllerにActionを追加
         alert.addAction(cancelAction)
