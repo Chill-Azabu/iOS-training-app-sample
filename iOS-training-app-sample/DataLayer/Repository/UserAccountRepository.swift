@@ -8,7 +8,6 @@
 
 import APIKit
 import RxSwift
-import Result
 
 // ユーザーアカウント関連のデータ操作
 protocol UserAccountRepository {

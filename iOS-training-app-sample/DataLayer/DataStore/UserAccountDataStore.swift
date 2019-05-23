@@ -7,7 +7,6 @@
 //
 
 import APIKit
-import Result
 import RxSwift
 
 // ユーザーアカウント関連のデータ取得

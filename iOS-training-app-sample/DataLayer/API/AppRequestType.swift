@@ -8,7 +8,6 @@
 
 import Foundation
 import APIKit
-import Result
 
 enum APPErrorCode: Int {
     case error400 = 400
