@@ -8,7 +8,6 @@
 
 import APIKit
 import RxSwift
-import Result
 
 // Contents関連のデータ操作
 protocol ContentsDataStore {
