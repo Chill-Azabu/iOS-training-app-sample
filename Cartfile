@@ -2,6 +2,5 @@ github "ReactiveX/RxSwift"  #データバインディング
 github "ishkawa/APIKit"  #API
 github "onevcat/Kingfisher"  #画像
 github "mac-cain13/R.swift.Library"  #Resource管理
-github "SwiftyBeaver/SwiftyBeaver"  #ログ
 github "kean/Nuke"
 

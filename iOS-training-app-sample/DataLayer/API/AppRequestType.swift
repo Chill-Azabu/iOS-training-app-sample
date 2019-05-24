@@ -56,7 +56,6 @@ extension AppRequestType {
     }
 
     func intercept(object: Any, urlResponse: HTTPURLResponse) throws -> Any {
-        Logger.shared.apiResponseLogger(object, URLResponse: urlResponse)
 
         switch urlResponse.statusCode {
         case 200..<300:
@@ -75,8 +74,7 @@ extension AppRequestType {
     }
 
     func intercept(urlRequest: URLRequest) throws -> URLRequest {
-        Logger.shared.apiRequestLogger(urlRequest)
-
+        
         var req = urlRequest
         req.timeoutInterval = 2.0
 

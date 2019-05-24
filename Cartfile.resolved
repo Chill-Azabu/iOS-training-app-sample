@@ -1,5 +1,4 @@
 github "ReactiveX/RxSwift" "5.0.1"
-github "SwiftyBeaver/SwiftyBeaver" "1.7.0"
 github "ishkawa/APIKit" "5.0.0"
 github "kean/Nuke" "7.6.3"
 github "mac-cain13/R.swift.Library" "v5.0.1"

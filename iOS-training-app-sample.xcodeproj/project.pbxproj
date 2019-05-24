@@ -48,8 +48,6 @@
 		5B2C310821CE8ACD00C7DEF9 /* ContentsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C310721CE8ACD00C7DEF9 /* ContentsRepository.swift */; };
 		5B2C310A21CE8AE700C7DEF9 /* UserAccountRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C310921CE8AE700C7DEF9 /* UserAccountRepository.swift */; };
 		5B2C310D21CE8BD600C7DEF9 /* AppuserDefaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C310C21CE8BD600C7DEF9 /* AppuserDefaults.swift */; };
-		5B2C310F21CE8D2300C7DEF9 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C310E21CE8D2300C7DEF9 /* Logger.swift */; };
-		5B2C311321CE8D7C00C7DEF9 /* Data+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C311221CE8D7C00C7DEF9 /* Data+Extensions.swift */; };
 		5B2C311521CE8E2100C7DEF9 /* AppResource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C311421CE8E2100C7DEF9 /* AppResource.swift */; };
 		5B2C311821CE8F9800C7DEF9 /* APIRoutes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C311721CE8F9800C7DEF9 /* APIRoutes.swift */; };
 		5B2C311A21CE91D000C7DEF9 /* SignInAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C311921CE91D000C7DEF9 /* SignInAPI.swift */; };
@@ -148,8 +146,6 @@
 		5B2C310721CE8ACD00C7DEF9 /* ContentsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentsRepository.swift; sourceTree = "<group>"; };
 		5B2C310921CE8AE700C7DEF9 /* UserAccountRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountRepository.swift; sourceTree = "<group>"; };
 		5B2C310C21CE8BD600C7DEF9 /* AppuserDefaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppuserDefaults.swift; sourceTree = "<group>"; };
-		5B2C310E21CE8D2300C7DEF9 /* Logger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
-		5B2C311221CE8D7C00C7DEF9 /* Data+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Data+Extensions.swift"; sourceTree = "<group>"; };
 		5B2C311421CE8E2100C7DEF9 /* AppResource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppResource.swift; sourceTree = "<group>"; };
 		5B2C311721CE8F9800C7DEF9 /* APIRoutes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIRoutes.swift; sourceTree = "<group>"; };
 		5B2C311921CE91D000C7DEF9 /* SignInAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInAPI.swift; sourceTree = "<group>"; };
@@ -425,7 +421,6 @@
 			isa = PBXGroup;
 			children = (
 				5B2C310C21CE8BD600C7DEF9 /* AppuserDefaults.swift */,
-				5B2C310E21CE8D2300C7DEF9 /* Logger.swift */,
 			);
 			path = Util;
 			sourceTree = "<group>";
@@ -433,7 +428,6 @@
 		5B2C311121CE8D6100C7DEF9 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
-				5B2C311221CE8D7C00C7DEF9 /* Data+Extensions.swift */,
 				5B2C313C21CECC3600C7DEF9 /* Session+Extensions.swift */,
 				5BDEA99D21E252D7000C7B49 /* UIImage+Extensions.swift */,
 				5B10092321E7B1CB00DFE3FB /* Observable+Extensions.swift */,
@@ -492,12 +486,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 5B2C308A21CE5FC800C7DEF9 /* Build configuration list for PBXNativeTarget "iOS-training-app-sample" */;
 			buildPhases = (
-				5B2C309221CE6B4900C7DEF9 /* ShellScript */,
+				5B2C309221CE6B4900C7DEF9 /* R.swift */,
 				5B2C306921CE5FC600C7DEF9 /* Sources */,
 				5B2C306A21CE5FC600C7DEF9 /* Frameworks */,
 				5B2C306B21CE5FC600C7DEF9 /* Resources */,
-				5B2C309521CE6E3000C7DEF9 /* ShellScript */,
-				5B2C309021CE678900C7DEF9 /* ShellScript */,
+				5B2C309521CE6E3000C7DEF9 /* SwiftLint */,
+				5B2C309021CE678900C7DEF9 /* Carthage */,
 			);
 			buildRules = (
 			);
@@ -595,7 +589,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		5B2C309021CE678900C7DEF9 /* ShellScript */ = {
+		5B2C309021CE678900C7DEF9 /* Carthage */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -606,10 +600,10 @@
 				"$(SRCROOT)/Carthage/Build/iOS/Rswift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxCocoa.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftyBeaver.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
 			);
+			name = Carthage;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -618,7 +612,7 @@
 			shellPath = /bin/sh;
 			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-		5B2C309221CE6B4900C7DEF9 /* ShellScript */ = {
+		5B2C309221CE6B4900C7DEF9 /* R.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -627,6 +621,7 @@
 			);
 			inputPaths = (
 			);
+			name = R.swift;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -635,7 +630,7 @@
 			shellPath = /bin/sh;
 			shellScript = "\"$SRCROOT/rswift\" generate \"$SRCROOT\"\n";
 		};
-		5B2C309521CE6E3000C7DEF9 /* ShellScript */ = {
+		5B2C309521CE6E3000C7DEF9 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -644,6 +639,7 @@
 			);
 			inputPaths = (
 			);
+			name = SwiftLint;
 			outputFileListPaths = (
 			);
 			outputPaths = (
@@ -685,7 +681,6 @@
 				5B2C312921CE971600C7DEF9 /* LogoutAPI.swift in Sources */,
 				5B2C30E921CE801000C7DEF9 /* ContentsAddViewController.swift in Sources */,
 				5B2C314321CEE93700C7DEF9 /* ViewController.swift in Sources */,
-				5B2C310F21CE8D2300C7DEF9 /* Logger.swift in Sources */,
 				5B2C30F921CE80EE00C7DEF9 /* LogoutViewModel.swift in Sources */,
 				5B2C30E521CE7F8500C7DEF9 /* HomeViewModel.swift in Sources */,
 				5B2C313F21CECFC800C7DEF9 /* LogoutEntity.swift in Sources */,
@@ -727,7 +722,6 @@
 				5B2C30CD21CE788B00C7DEF9 /* SplashViewController.swift in Sources */,
 				5B10096A21EB64FC00DFE3FB /* SplashViewModel.swift in Sources */,
 				5B2C30F121CE807900C7DEF9 /* ContentsEditViewController.swift in Sources */,
-				5B2C311321CE8D7C00C7DEF9 /* Data+Extensions.swift in Sources */,
 				5B2C311A21CE91D000C7DEF9 /* SignInAPI.swift in Sources */,
 				5BD5FF482261188D0002E92D /* Class+Extensions.swift in Sources */,
 				5B2C310321CE8A1700C7DEF9 /* ContentsDataStore.swift in Sources */,
