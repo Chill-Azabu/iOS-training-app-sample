@@ -29,7 +29,7 @@ final class SplashRoutingImpl: SplashRouting {
     }
 
     func showHome() {
-        let tabVC = TabBarViewController()
+        let tabVC = TabBarViewController.createinstance()
         viewController?.navigationController?.present(tabVC, animated: false)
     }
 }

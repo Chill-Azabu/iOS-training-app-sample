@@ -22,7 +22,7 @@ final class SignInRoutingImpl: SignInRouting {
     }
 
     func showHome() {
-        let tabVC = TabBarViewController()
+        let tabVC = TabBarViewController.createinstance()
         viewController?.navigationController?.present(tabVC, animated: false)
     }
 }

@@ -79,6 +79,7 @@
 		5BFBE8C622BEA7B5007B3052 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C313821CEC53500C7DEF9 /* APIKit.framework */; };
 		5BFBE8C722BEA7B5007B3052 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309A21CE6FF300C7DEF9 /* RxCocoa.framework */; };
 		5BFBE8C822BEA7B5007B3052 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309C21CE6FF300C7DEF9 /* RxSwift.framework */; };
+		5BFBE8CA22BEBA63007B3052 /* dataStoreTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BFBE8C922BEBA63007B3052 /* dataStoreTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -179,6 +180,7 @@
 		5BDEA99D21E252D7000C7B49 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		5BDEA99F21E25438000C7B49 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
 		5BFBE8C422BEA377007B3052 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
+		5BFBE8C922BEBA63007B3052 /* dataStoreTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = dataStoreTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -245,6 +247,7 @@
 			children = (
 				5B2C308521CE5FC800C7DEF9 /* iOS_training_app_sampleTests.swift */,
 				5B2C308721CE5FC800C7DEF9 /* Info.plist */,
+				5BFBE8C922BEBA63007B3052 /* dataStoreTests.swift */,
 			);
 			path = "iOS-training-app-sampleTests";
 			sourceTree = "<group>";
@@ -741,6 +744,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				5B2C308621CE5FC800C7DEF9 /* iOS_training_app_sampleTests.swift in Sources */,
+				5BFBE8CA22BEBA63007B3052 /* dataStoreTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -891,6 +895,7 @@
 		5B2C308B21CE5FC800C7DEF9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B46YA9GNL5;
@@ -915,6 +920,7 @@
 		5B2C308C21CE5FC800C7DEF9 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = PGP7B8YQAS;
@@ -942,8 +948,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B46YA9GNL5;
 				INFOPLIST_FILE = "iOS-training-app-sampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1047,6 +1054,7 @@
 		5BD5FF4A22636ABE0002E92D /* DebugSTG */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = B46YA9GNL5;
@@ -1075,8 +1083,9 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = B46YA9GNL5;
 				INFOPLIST_FILE = "iOS-training-app-sampleTests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1156,6 +1165,7 @@
 		5BD5FF4D22636AC50002E92D /* ReleasePRO */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_TEAM = PGP7B8YQAS;

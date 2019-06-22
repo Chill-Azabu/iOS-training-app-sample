@@ -1,16 +1,18 @@
 //
-//  iOS_training_app_sampleTests.swift
+//  dataStore.swift
 //  iOS-training-app-sampleTests
 //
-//  Created by Iichiro Kawashima on 2018/12/22.
-//  Copyright © 2018 Iichiro Kawashima. All rights reserved.
+//  Created by Iichiro Kawashima on 2019/06/23.
+//  Copyright © 2019 Iichiro Kawashima. All rights reserved.
 //
 
 import XCTest
+import RxSwift
+import APIKit
 
 @testable import iOS_training_app_sample
 
-class iOS_training_app_sampleTests: XCTestCase {
+class dataStoreTests: XCTestCase {
 
     override func setUp() {
         super.setUp()
@@ -23,7 +25,19 @@ class iOS_training_app_sampleTests: XCTestCase {
     }
 
     func testExample() {
-        
+        let dataStore = ContentsDataStoreImpl()
+        let disposeBag = DisposeBag()
+
+        let exp = expectation(description: "success")
+
+        dataStore.fetchContentsList(limit: 1, page: 1)
+            .subscribe(onSuccess: { _ in
+                exp.fulfill()
+            }, onError: { error in
+                XCTAssert(false, error.localizedDescription)
+            }).disposed(by: disposeBag)
+
+        waitForExpectations(timeout: 2, handler: nil)
     }
 
     func testPerformanceExample() {
