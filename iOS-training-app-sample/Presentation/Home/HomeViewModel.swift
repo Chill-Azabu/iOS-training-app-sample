@@ -37,11 +37,11 @@ final class HomeViewModelImpl: HomeViewModel {
         self.contentsList = PublishRelay<[HomeTableViewCell.ViewData]>()
 
         let results = input
-            .do { [unowned self] in
-                self.page += 1
+            .do { [weak self] in
+                self?.page += 1
             }
-            .flatMapLatest { [unowned self] in
-                dependency.fetchContentsList(limit: AppResource.Const.limit, page: self.page)
+            .flatMapLatest { [weak self] in
+                dependency.fetchContentsList(limit: AppResource.Const.limit, page: self?.page ?? 1)
                 .asObservable().materialize()
             }.share(replay: 1)
 

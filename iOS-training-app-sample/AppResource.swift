@@ -46,7 +46,7 @@ struct AppResource {
 
     struct Const {
         #if Debug
-            static let url = "http://54.250.239.8"
+            static let url = "http://54.250.239.8/"
         #elseif ReleasePRO
             static let url = ""
             // TODO: 本番用URL追記

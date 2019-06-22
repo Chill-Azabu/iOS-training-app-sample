@@ -61,11 +61,6 @@ class SignUpViewController: UIViewController, ViewController {
         return saveButton
     }()
 
-    private let closeButton: UIBarButtonItem = {
-        let closeButton = UIBarButtonItem(title: "閉じる", style: .plain, target: self, action: nil)
-        return closeButton
-    }()
-
     private lazy var viewModel: SignUpViewModel = {
         let viewModel = SignUpViewModelImpl(
             input: (
@@ -98,7 +93,6 @@ class SignUpViewController: UIViewController, ViewController {
     private func setupNavBar() {
         title = "アカウント設定"
         navigationItem.setRightBarButton(saveButton, animated: true)
-        navigationItem.setLeftBarButton(closeButton, animated: true)
     }
 
     private func bindView() {
@@ -120,10 +114,6 @@ class SignUpViewController: UIViewController, ViewController {
                 self.showAlertDialog(title: "エラー", message: (error?.localizedDescription)!)
             }).disposed(by: viewModel.disposeBag)
 
-        closeButton.rx.tap
-            .subscribe(onNext: { [unowned self] _ in
-                self.routing.showSignIn()
-            }).disposed(by: viewModel.disposeBag)
     }
 }
 
