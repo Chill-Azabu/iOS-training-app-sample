@@ -15,9 +15,6 @@
 		5B2C307821CE5FC800C7DEF9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5B2C307721CE5FC800C7DEF9 /* Assets.xcassets */; };
 		5B2C308621CE5FC800C7DEF9 /* iOS_training_app_sampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C308521CE5FC800C7DEF9 /* iOS_training_app_sampleTests.swift */; };
 		5B2C309421CE6DDE00C7DEF9 /* R.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C309321CE6DDE00C7DEF9 /* R.generated.swift */; };
-		5B2C30A621CE6FF400C7DEF9 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309A21CE6FF300C7DEF9 /* RxCocoa.framework */; };
-		5B2C30A821CE6FF400C7DEF9 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309C21CE6FF300C7DEF9 /* RxSwift.framework */; };
-		5B2C30AA21CE6FF400C7DEF9 /* SwiftyBeaver.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309E21CE6FF300C7DEF9 /* SwiftyBeaver.framework */; };
 		5B2C30AD21CE6FF400C7DEF9 /* Rswift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C30A121CE6FF300C7DEF9 /* Rswift.framework */; };
 		5B2C30B121CE70DF00C7DEF9 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 5B2C30B321CE70DF00C7DEF9 /* Localizable.strings */; };
 		5B2C30C521CE779500C7DEF9 /* UserAccountEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C30C421CE779500C7DEF9 /* UserAccountEntity.swift */; };
@@ -61,7 +58,6 @@
 		5B2C312F21CE9F8000C7DEF9 /* CommonTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C312E21CE9F8000C7DEF9 /* CommonTextField.swift */; };
 		5B2C313321CEA06000C7DEF9 /* CommonButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C313221CEA06000C7DEF9 /* CommonButton.swift */; };
 		5B2C313621CEA66900C7DEF9 /* HomeTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C313421CEA66900C7DEF9 /* HomeTableViewCell.swift */; };
-		5B2C313A21CEC53500C7DEF9 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C313821CEC53500C7DEF9 /* APIKit.framework */; };
 		5B2C313D21CECC3600C7DEF9 /* Session+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C313C21CECC3600C7DEF9 /* Session+Extensions.swift */; };
 		5B2C313F21CECFC800C7DEF9 /* LogoutEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C313E21CECFC800C7DEF9 /* LogoutEntity.swift */; };
 		5B2C314121CEE0CB00C7DEF9 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5B2C314021CEE0CB00C7DEF9 /* ViewModel.swift */; };
@@ -79,6 +75,10 @@
 		5BD5FF482261188D0002E92D /* Class+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BD5FF472261188D0002E92D /* Class+Extensions.swift */; };
 		5BDEA99E21E252D7000C7B49 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5BDEA99D21E252D7000C7B49 /* UIImage+Extensions.swift */; };
 		5BDEA9A021E25438000C7B49 /* Kingfisher.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BDEA99F21E25438000C7B49 /* Kingfisher.framework */; };
+		5BFBE8C522BEA377007B3052 /* RxRelay.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5BFBE8C422BEA377007B3052 /* RxRelay.framework */; };
+		5BFBE8C622BEA7B5007B3052 /* APIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C313821CEC53500C7DEF9 /* APIKit.framework */; };
+		5BFBE8C722BEA7B5007B3052 /* RxCocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309A21CE6FF300C7DEF9 /* RxCocoa.framework */; };
+		5BFBE8C822BEA7B5007B3052 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B2C309C21CE6FF300C7DEF9 /* RxSwift.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -178,6 +178,7 @@
 		5BD5FF472261188D0002E92D /* Class+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Class+Extensions.swift"; sourceTree = "<group>"; };
 		5BDEA99D21E252D7000C7B49 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		5BDEA99F21E25438000C7B49 /* Kingfisher.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Kingfisher.framework; path = Carthage/Build/iOS/Kingfisher.framework; sourceTree = "<group>"; };
+		5BFBE8C422BEA377007B3052 /* RxRelay.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxRelay.framework; path = Carthage/Build/iOS/RxRelay.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,11 +186,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5BFBE8C622BEA7B5007B3052 /* APIKit.framework in Frameworks */,
+				5BFBE8C722BEA7B5007B3052 /* RxCocoa.framework in Frameworks */,
+				5BFBE8C822BEA7B5007B3052 /* RxSwift.framework in Frameworks */,
+				5BFBE8C522BEA377007B3052 /* RxRelay.framework in Frameworks */,
 				5BDEA9A021E25438000C7B49 /* Kingfisher.framework in Frameworks */,
-				5B2C313A21CEC53500C7DEF9 /* APIKit.framework in Frameworks */,
-				5B2C30A621CE6FF400C7DEF9 /* RxCocoa.framework in Frameworks */,
-				5B2C30A821CE6FF400C7DEF9 /* RxSwift.framework in Frameworks */,
-				5B2C30AA21CE6FF400C7DEF9 /* SwiftyBeaver.framework in Frameworks */,
 				5B2C30AD21CE6FF400C7DEF9 /* Rswift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -251,6 +252,7 @@
 		5B2C309621CE6FF300C7DEF9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5BFBE8C422BEA377007B3052 /* RxRelay.framework */,
 				5BDEA99F21E25438000C7B49 /* Kingfisher.framework */,
 				5B2C313821CEC53500C7DEF9 /* APIKit.framework */,
 				5B2C313921CEC53500C7DEF9 /* Result.framework */,
@@ -602,6 +604,7 @@
 				"$(SRCROOT)/Carthage/Build/iOS/RxSwift.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/APIKit.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Kingfisher.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/RxRelay.framework",
 			);
 			name = Carthage;
 			outputFileListPaths = (
@@ -890,7 +893,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = PGP7B8YQAS;
+				DEVELOPMENT_TEAM = B46YA9GNL5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -903,7 +906,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.IichiroKawashima.iOS-training-app-sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "personal development provisioning Profiles";
+				PROVISIONING_PROFILE_SPECIFIER = DevWildcard;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -1046,7 +1049,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
-				DEVELOPMENT_TEAM = PGP7B8YQAS;
+				DEVELOPMENT_TEAM = B46YA9GNL5;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
@@ -1061,7 +1064,7 @@
 				OTHER_SWIFT_FLAGS = "-D DebugSTG";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.IichiroKawashima.iOS-training-app-sample";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "personal development provisioning Profiles";
+				PROVISIONING_PROFILE_SPECIFIER = DevWildcard;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
