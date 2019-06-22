@@ -35,7 +35,7 @@ class HomeViewController: UIViewController {
 
     private lazy var addButton: UIBarButtonItem = {
         let addButton = UIBarButtonItem(title: "追加", style: .plain, target: self, action: nil)
-        tabBarController?.navigationItem.setRightBarButton(addButton, animated: true)
+        navigationItem.setRightBarButton(addButton, animated: true)
         return addButton
     }()
 
@@ -50,7 +50,7 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
 
         title = "書籍一覧"
-        view.backgroundColor = AppResource.Color.gray
+        view.backgroundColor = AppResource.Color.snowWhite
         navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
         bindUI()
     }

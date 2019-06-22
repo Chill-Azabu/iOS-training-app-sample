@@ -75,7 +75,7 @@ class ContentsEditViewController: UIViewController, ViewController {
         return datePicker
     }()
 
-    private lazy var imagePic: UIImagePickerController = {
+    private let imagePic: UIImagePickerController = {
         let imagePic = UIImagePickerController()
         imagePic.sourceType = .photoLibrary
         imagePic.allowsEditing = true
@@ -104,7 +104,7 @@ class ContentsEditViewController: UIViewController, ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = AppResource.Color.gray
+        view.backgroundColor = AppResource.Color.snowWhite
         navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
 
         bindView()
@@ -117,6 +117,7 @@ class ContentsEditViewController: UIViewController, ViewController {
             }).disposed(by: viewModel.disposeBag)
 
         contentsPickerButton.rx.tap
+            .skip(1)
             .subscribe(onNext: { [unowned self] _ in
                 self.imagePic.present(self.imagePic, animated: true)
             }).disposed(by: viewModel.disposeBag)

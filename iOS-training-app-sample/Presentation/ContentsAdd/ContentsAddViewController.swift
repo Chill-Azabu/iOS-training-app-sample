@@ -103,7 +103,7 @@ class ContentsAddViewController: UIViewController, ViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        view.backgroundColor = AppResource.Color.gray
+        view.backgroundColor = AppResource.Color.snowWhite
         navigationController?.navigationBar.barTintColor = AppResource.Color.lightGray
         setupNavBar()
         bindUI()
