@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="jiM-2f-jcw">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Sign In View Controller-->
+        <scene sceneID="8PR-qs-5Dp">
+            <objects>
+                <viewController storyboardIdentifier="SignInViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="jiM-2f-jcw" customClass="SignInViewController" customModule="iOS_training_app_sample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="orI-td-BbA">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="equalSpacing" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="cV5-vs-U17">
+                                <rect key="frame" x="60" y="120" width="255" height="171"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="grs-qs-59c">
+                                        <rect key="frame" x="0.0" y="0.0" width="255" height="50.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kvu-cb-mHx">
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mo6-RR-P1M">
+                                                <rect key="frame" x="0.0" y="20.5" width="255" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="H5i-MD-gmu">
+                                        <rect key="frame" x="0.0" y="70.5" width="255" height="50.5"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dOQ-YP-7tI">
+                                                <rect key="frame" x="0.0" y="0.0" width="255" height="20.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="1aD-uo-5zU">
+                                                <rect key="frame" x="0.0" y="20.5" width="255" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
+                                        </subviews>
+                                    </stackView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XAH-Tn-uAU">
+                                        <rect key="frame" x="0.0" y="141" width="255" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JcE-4s-5PV">
+                                <rect key="frame" x="255" y="318" width="60" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="60" id="1k4-DT-wSi"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="JcE-4s-5PV" firstAttribute="trailing" secondItem="cV5-vs-U17" secondAttribute="trailing" id="21l-NZ-h0P"/>
+                            <constraint firstItem="JcE-4s-5PV" firstAttribute="top" secondItem="cV5-vs-U17" secondAttribute="bottom" constant="27" id="DKQ-e7-cYU"/>
+                            <constraint firstItem="cV5-vs-U17" firstAttribute="top" secondItem="Bfp-Bb-Wpv" secondAttribute="top" constant="100" id="N1A-Aj-saU"/>
+                            <constraint firstItem="cV5-vs-U17" firstAttribute="leading" secondItem="Bfp-Bb-Wpv" secondAttribute="leading" constant="60" id="Z0k-Ik-fUd"/>
+                            <constraint firstItem="Bfp-Bb-Wpv" firstAttribute="trailing" secondItem="cV5-vs-U17" secondAttribute="trailing" constant="60" id="bb1-0w-2qO"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="Bfp-Bb-Wpv"/>
+                    </view>
+                    <connections>
+                        <outlet property="emailLabel" destination="kvu-cb-mHx" id="bps-B2-pEi"/>
+                        <outlet property="emailTextField" destination="mo6-RR-P1M" id="kj2-nJ-tj6"/>
+                        <outlet property="passwordLabel" destination="dOQ-YP-7tI" id="SEV-TE-Cjw"/>
+                        <outlet property="passwordTextField" destination="1aD-uo-5zU" id="BKB-ra-9Ae"/>
+                        <outlet property="signInButton" destination="XAH-Tn-uAU" id="r59-aJ-hPa"/>
+                        <outlet property="signUpButton" destination="JcE-4s-5PV" id="sld-Jk-mkk"/>
+                        <segue destination="Fwg-4o-9Ow" kind="show" id="Ggu-BV-Gsn"/>
+                        <segue destination="Cnd-lz-C9l" kind="show" id="Z7U-2h-GaF"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="IyD-Rk-Aji" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="146" y="197"/>
+        </scene>
+        <!--HomeViewController-->
+        <scene sceneID="XFx-ge-5Rr">
+            <objects>
+                <viewControllerPlaceholder storyboardName="HomeViewController" id="Fwg-4o-9Ow" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="g3E-rN-AOk" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1030" y="25"/>
+        </scene>
+        <!--SignUpViewController-->
+        <scene sceneID="uYG-h3-HZz">
+            <objects>
+                <viewControllerPlaceholder storyboardName="SignUpViewController" id="Cnd-lz-C9l" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xHg-0O-vOX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1036" y="266"/>
+        </scene>
+    </scenes>
+</document>

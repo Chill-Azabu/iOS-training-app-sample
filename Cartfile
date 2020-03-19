@@ -1,10 +1,6 @@
 github "ReactiveX/RxSwift"  #データバインディング
 github "ishkawa/APIKit"  #API
-github "onevcat/Kingfisher" ~> 5.0  #画像
+github "onevcat/Kingfisher"  #画像
 github "mac-cain13/R.swift.Library"  #Resource管理
-github "SwiftyBeaver/SwiftyBeaver"  #ログ
-github "airbnb/lottie-ios" "master"  #アニメーション
-github "RxSwiftCommunity/RxDataSources" ~> 3.0  #tableView作成
-github "kishikawakatsumi/KeychainAccess"
-
+github "kean/Nuke"
 
